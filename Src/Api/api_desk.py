@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 from dotenv import dotenv_values
 
 env = dotenv_values(".env")
@@ -20,40 +21,33 @@ class Desk:
         else:
             return False
         
-    def interagir_chamado(self, os: dict):
+    def interagir_chamado(self,
+                          chamado_desk,
+                          forma_atendimento,
+                          cod_status,
+                          operador,
+                          horario: datetime,
+                          descricao
+                          ):
+
         headers = {"Authorization": self.authentication()}
+
         data_json = {
-            "Chave":"0723-001927",
-            "TChamado": {
-                "CodFormaAtendimento": "000009",
-                "CodStatus": "000006",
-                "CodAprovador":[""],
-                "TransferirOperador":"",
-                "TransferirGrupo":"",
-                "CodTerceiros":"",
-                "Protocolo":"",
-                "Descricao": "TEST TEST TEST TEST",
-                "CodAgendamento":"",
-                "DataAgendamento":"",
-                "HoraAgendamento":"",
-                "CodCausa":"",
-                "CodOperador":"",
-                "CodGrupo":"",
-                "EnviarEmail":"S",
-                "EnvBase":"N",
-                "CodFPMsg":"",
-                "DataInteracao": "29-08-2017",
-                "HoraInicial": "09:46:42",
-                "HoraFinal": "09:47",
-                "SMS": "",
-                "ObservacaoInterna": "",
-                "PrimeiroAtendimento": "N",
-                "SegundoAtendimento": "N"
-            },
-            "TIc":{
-                "Chave":{
-                    "278":"on",
-                    "280":"on"	
+                "Chave": chamado_desk,
+                "TChamado": {
+                    "CodFormaAtendimento": forma_atendimento,
+                    "CodStatus": cod_status,
+                    "Descricao": descricao,
+                    "CodOperador": operador,
+                    "DataInteracao": horario.strftime("%d/%m/%Y"),
+                    "HoraInicial": horario.strftime("%H:%M"),
+                    "HoraFinal": horario.strftime("%H:%M")
                 }
             }
-        }
+        
+        response = requests.put(self.__url_interagir, json=data_json, headers=headers)
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return False

@@ -57,7 +57,7 @@ def parse_goon_xml_to_dict(xml_str) -> dict:
 
     return results
 
-def goon_to_desk(horario, atraso):
+def get_os_goon(horario, atraso):
     go_on = Goon()
 
     horario_inicial = horario - timedelta(minutes=atraso)

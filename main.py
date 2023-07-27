@@ -1,47 +1,44 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from dotenv import load_dotenv
-import os
 from Src.Middleware.authentication import authorization
-from Src.Controller.x9_controller import handle_start_x9, handle_stop_x9, handle_status_x9
+from Src.Controller.goon_to_desk_controller import handle_start_goon_to_desk, handle_stop_goon_to_desk, handle_status_goon_to_desk
+from dotenv import dotenv_values
 
-
-load_dotenv()
+env = dotenv_values(".env")
 
 version = "0.0.1"
 
 app = Client(
-    name=os.getenv("BOT_NAME_TELEGRAM"), 
-    api_hash=os.getenv("API_HASH_TELEGRAM"),
-    api_id=os.getenv("API_ID_TELEGRAM"),
-    bot_token=os.getenv("BOT_TOKEN_TELEGRAM")
+    name=env["BOT_NAME_TELEGRAM"], 
+    api_hash=env["API_HASH_TELEGRAM"],
+    api_id=env["API_ID_TELEGRAM"],
+    bot_token=env["BOT_TOKEN_TELEGRAM"]
     )
 
 chat_adm = [
-    os.getenv("CHAT_ID_ADM"),
-    os.getenv("CHAT_ID_SISTEMA"),
+    env["CHAT_ID_ADM"],
 ]
 
-chat_x9 = [
-    os.getenv("CHAT_ID_ADM"),
-    os.getenv("CHAT_ID_SISTEMA"),
+chat_goon_to_desk = [
+    env["CHAT_ID_ADM"],
+    env["CHAT_ID_SISTEMA"],
 ]
 
 @app.on_message(filters.command("start"))
 def start(client, message: Message):
     message.reply_text(f"""
-/logistica - Setor Logistica
+/goon - Integração goon e desk
 /chat - Informa seu chat_id
 /chatgroup - Informa chat_id grupo
 """)
 
-@app.on_message(filters.command("logistica"))
-@authorization(chat_x9)
+@app.on_message(filters.command("goon"))
+@authorization(chat_goon_to_desk)
 def financeiro(client, message: Message):
     message.reply_text(f"""
-/iniciar_x9 - Iniciar x9
-/parar_x9 - Parar x9
-/status_x9 - Status x9
+/iniciar_goon - Iniciar integração
+/parar_goon - Parar integração
+/status_goon - Status integração
 """)
 
 @app.on_message(filters.command("chatgroup"))
@@ -56,22 +53,22 @@ def handle_chat_id(client: Client, message: Message):
     print(text)
 
 # iniciar x9
-@app.on_message(filters.command("iniciar_x9"))
-@authorization(chat_x9)
-def iniciar_x9(client: Client, message: Message):
-    handle_start_x9(client, message)
+@app.on_message(filters.command("iniciar_goon"))
+@authorization(chat_goon_to_desk)
+def iniciar_goon_to_desk(client: Client, message: Message):
+    handle_start_goon_to_desk(client, message)
 
 # parar x9
-@app.on_message(filters.command("parar_x9"))
-@authorization(chat_x9)
-def parar_x9(client: Client, message: Message):
-    handle_stop_x9(client, message)
+@app.on_message(filters.command("parar_goon"))
+@authorization(chat_goon_to_desk)
+def parar_goon_to_desk(client: Client, message: Message):
+    handle_stop_goon_to_desk(client, message)
 
 # status x9
-@app.on_message(filters.command("status_x9"))
-@authorization(chat_x9)
-def status_x9(client: Client, message: Message):
-    handle_status_x9(client, message)
+@app.on_message(filters.command("status_goon"))
+@authorization(chat_goon_to_desk)
+def status_goon_to_desk(client: Client, message: Message):
+    handle_status_goon_to_desk(client, message)
 
 # stop service
 @app.on_message(filters.command("stop_service"))

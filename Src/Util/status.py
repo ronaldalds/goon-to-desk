@@ -14,11 +14,13 @@ STATUS_GOON = {
 }
 
 CHAVE_USUARIO_DESK = {
-    "Erivelton": 70,
-    "Iran": 36,
-    "Guilherme": 68,
-    "Daniel": 63,
-    "Edivan": 473
+    "Iran": 123,
+    "Guilherme": 121,
+    "Erivelton": 130,
+    "Daniel": 124,
+    "Wescley": 125,
+    "Silvio": 131,
+    "Bruno": 201
 }
 
 STATUS_DESK = {
@@ -28,4 +30,34 @@ STATUS_DESK = {
    "Resolvido": "000002"
 }
 
-# chave chamado 51887
+FORMA_ATENDIMENTO_DESK = {
+   "Desk Manager": "000009",
+   "Acesso Remoto": "000001",
+   "Whatsapp": "000051"
+}
+
+DIAS_SEMANA = {
+    0: "Seg",
+    1: "Ter",
+    2: "Qua",
+    3: "Qui",
+    4: "Sex",
+    5: "Sáb",
+    6: "Dom"
+}
+
+MESES_ANO = [
+    None,
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+]

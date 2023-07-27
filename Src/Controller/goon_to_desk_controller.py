@@ -1,6 +1,7 @@
 from pyrogram import Client
 from pyrogram.types import Message
-from Src.Service.go_on_service import goon_to_desk
+from Src.Service.go_on_service import get_os_goon
+from Src.Service.desk_service import set_chamado_desk
 from datetime import datetime, timedelta
 from time import sleep
 from dotenv import dotenv_values
@@ -9,7 +10,6 @@ env = dotenv_values(".env")
 
 running = False
 tempo_ciclo = int(env["TIME_CLICO"])
-grupo_transport = int(env["CHAT_ID_GROUP_TRANSPORT"])
 
 def handle_start_goon_to_desk(client: Client, message: Message):
     global running
@@ -23,12 +23,10 @@ def handle_start_goon_to_desk(client: Client, message: Message):
             sleep(1)
             if datetime.now().strftime("%d/%m/%Y %H:%M") == ((data + timedelta(minutes=tempo_ciclo)).strftime("%d/%m/%Y %H:%M")):
                 data = datetime.now()
-                res = goon_to_desk(data, tempo_ciclo)
+                res = get_os_goon(data, tempo_ciclo)
                 if res:
                     for ocorrencia in res:
-                        print(ocorrencia)
-                        
-                        
+                        set_chamado_desk(ocorrencia)
 
             # Verifica se a execução deve continuar ou parar
             if not running:
