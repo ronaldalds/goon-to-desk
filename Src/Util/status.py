@@ -13,14 +13,18 @@ STATUS_GOON = {
     'FIOK': 'Finalizado',
 }
 
-CHAVE_USUARIO_DESK = {
-    "Iran": 123,
-    "Guilherme": 121,
-    "Erivelton": 130,
-    "Daniel": 124,
-    "Wescley": 125,
-    "Silvio": 131,
-    "Bruno": 201
+USUARIO_DESK = {
+    "Iran": 123, # Iran
+    "Guilherme": 121, # Guilherme
+    "Erivelton": 130, # Erivelton
+    "Daniel": 124, # Daniel
+    "Wescley": 125, # Wescley
+    "Silvio": 131, # Silvio
+    "Bruno": 201 # Bruno
+}
+
+CHAVE_OPERADOR_DESK = {
+    46: USUARIO_DESK["Erivelton"],
 }
 
 STATUS_DESK = {

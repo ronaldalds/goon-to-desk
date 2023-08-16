@@ -20,13 +20,14 @@ class Goon:
 
         try:
             response = self._client.service.GetAllocatedOrdersByAgent(**reques_data)
-        except:
+        
+            dicionario = json.loads(response)
+
+            if not dicionario["success"]:
+                return dicionario["success"]
+            
+            return dicionario
+
+        except Exception as e:
+            print(f"Error getting: {e}")
             return False
-        
-        dicionario = json.loads(response)
-
-        if not dicionario["success"]:
-            return dicionario["success"]
-        
-        return dicionario
-

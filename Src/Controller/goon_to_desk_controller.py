@@ -23,6 +23,7 @@ def handle_start_goon_to_desk(client: Client, message: Message):
             sleep(1)
             if datetime.now().strftime("%d/%m/%Y %H:%M") == ((data + timedelta(minutes=tempo_ciclo)).strftime("%d/%m/%Y %H:%M")):
                 data = datetime.now()
+                print(data)
                 res = get_os_goon(data, tempo_ciclo)
                 if res:
                     for ocorrencia in res:

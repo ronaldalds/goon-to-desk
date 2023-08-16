@@ -10,15 +10,18 @@ class Desk:
         self.__url_interagir = env["END_POINT_INTERAGIR"]
 
     def authentication(self):
-        headers = {"Authorization": env["CHAVE_DESK_ADM"]}
-        data_json = {
-            "PublicKey": env["CHAVE_DESK_AMBIENTE"]
-        }
-        response = requests.post(self.__url_auth, json=data_json, headers=headers)
+        try:
+            headers = {"Authorization": env["CHAVE_DESK_ADM"]}
+            data_json = {"PublicKey": env["CHAVE_DESK_AMBIENTE"]}
+            response = requests.post(self.__url_auth, json=data_json, headers=headers)
 
-        if response.status_code == 200:
-            return response.json()
-        else:
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return False
+            
+        except Exception as e:
+            print(f"Error getting: {e}")
             return False
         
     def interagir_chamado(self,
@@ -29,25 +32,29 @@ class Desk:
                           horario: datetime,
                           descricao
                           ):
+        try:
+            headers = {"Authorization": self.authentication()}
 
-        headers = {"Authorization": self.authentication()}
-
-        data_json = {
-                "Chave": chamado_desk,
-                "TChamado": {
-                    "CodFormaAtendimento": forma_atendimento,
-                    "CodStatus": cod_status,
-                    "Descricao": descricao,
-                    "CodOperador": operador,
-                    "DataInteracao": horario.strftime("%d/%m/%Y"),
-                    "HoraInicial": horario.strftime("%H:%M"),
-                    "HoraFinal": horario.strftime("%H:%M")
+            data_json = {
+                    "Chave": chamado_desk,
+                    "TChamado": {
+                        "CodFormaAtendimento": forma_atendimento,
+                        "CodStatus": cod_status,
+                        "Descricao": descricao,
+                        "CodOperador": operador,
+                        "DataInteracao": horario.strftime("%d/%m/%Y"),
+                        "HoraInicial": horario.strftime("%H:%M"),
+                        "HoraFinal": horario.strftime("%H:%M")
+                    }
                 }
-            }
-        
-        response = requests.put(self.__url_interagir, json=data_json, headers=headers)
+            
+            response = requests.put(self.__url_interagir, json=data_json, headers=headers)
 
-        if response.status_code == 200:
-            return response.json()
-        else:
+            if response.status_code == 200:
+                return response.json()
+            else:
+                return False
+        
+        except Exception as e:
+            print(f"Error getting: {e}")
             return False

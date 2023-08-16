@@ -1,6 +1,6 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from Src.Middleware.authentication import authorization
+from Src.Middleware.authentication import authorization_group, authorization_adm
 from Src.Controller.goon_to_desk_controller import handle_start_goon_to_desk, handle_stop_goon_to_desk, handle_status_goon_to_desk
 from dotenv import dotenv_values
 
@@ -16,12 +16,11 @@ app = Client(
     )
 
 chat_adm = [
-    env["CHAT_ID_ADM"],
+    int(env["CHAT_ID_ADM"]),
 ]
 
 chat_goon_to_desk = [
-    env["CHAT_ID_ADM"],
-    env["CHAT_ID_SISTEMA"],
+    int(env["CHAT_ID_GROUP_GO_TO_DESK"]),
 ]
 
 @app.on_message(filters.command("start"))
@@ -33,7 +32,7 @@ def start(client, message: Message):
 """)
 
 @app.on_message(filters.command("goon"))
-@authorization(chat_goon_to_desk)
+@authorization_group(chat_goon_to_desk)
 def financeiro(client, message: Message):
     message.reply_text(f"""
 /iniciar_goon - Iniciar integração
@@ -42,7 +41,7 @@ def financeiro(client, message: Message):
 """)
 
 @app.on_message(filters.command("chatgroup"))
-@authorization(chat_adm)
+@authorization_adm(chat_adm)
 def handle_chatgroup_id(client: Client, message: Message):
     client.send_message(message.from_user.id, message)
 
@@ -54,25 +53,25 @@ def handle_chat_id(client: Client, message: Message):
 
 # iniciar x9
 @app.on_message(filters.command("iniciar_goon"))
-@authorization(chat_goon_to_desk)
+@authorization_group(chat_goon_to_desk)
 def iniciar_goon_to_desk(client: Client, message: Message):
     handle_start_goon_to_desk(client, message)
 
 # parar x9
 @app.on_message(filters.command("parar_goon"))
-@authorization(chat_goon_to_desk)
+@authorization_group(chat_goon_to_desk)
 def parar_goon_to_desk(client: Client, message: Message):
     handle_stop_goon_to_desk(client, message)
 
 # status x9
 @app.on_message(filters.command("status_goon"))
-@authorization(chat_goon_to_desk)
+@authorization_group(chat_goon_to_desk)
 def status_goon_to_desk(client: Client, message: Message):
     handle_status_goon_to_desk(client, message)
 
 # stop service
 @app.on_message(filters.command("stop_service"))
-@authorization(chat_adm)
+@authorization_adm(chat_adm)
 def stop(client: Client, message: Message):
     print("Service Stopping")
     app.stop()
