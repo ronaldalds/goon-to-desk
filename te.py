@@ -36,22 +36,35 @@
 
 # from Src.Service.go_on_service import goon_to_desk
 from Src.Api.api_go_on import Goon
+from Src.Api.api_desk import Desk
 from datetime import datetime, timedelta
+# import re
 
+desk = Desk()
+response = desk.operador_do_chamado("0823-001332")
+print(response)
 # horario_final = datetime.now()
 
-# horario_inicial = horario_final - timedelta(minutes=30)
+# horario_inicial = horario_final - timedelta(days=3)
 
 # horario = datetime(year=2023, month=7, day=25, hour=13, minute=00)
 
-horario = datetime.now()
-go = Goon()
-response = go.get_all_located_orders_by_agent(
-        agente_codigo=0,
-        mobile_agent= "Internal",
-        data= horario
-    )
-print(response)
+# horario = datetime.now()
+# go = Goon()
+# response = go.get_all_located_orders_by_agent(
+#         agente_codigo=0,
+#         mobile_agent= "Internal",
+#         data= horario
+#     )
+# chamado_desk = re.compile("[#][0-9]{4}[-][0-9]{6}")
+# data_to_desk = []
+# for os in response:
+#         if bool(chamado_desk.search(os["Descricao"])):
+#             os["chamadoDesk"] = chamado_desk.search(os["Descricao"]).group().replace('#', '')
+#             data_to_desk.append(os)
+# print(data_to_desk)
+# response = go.get_service_orders(data_inicial=horario_inicial, data_fim=horario_final)
+# print(response)
 # agente = status["MobileAgentName"] if status["MobileAgentName"] != None else "Sem Agente designado"
 
 # print(agente)
