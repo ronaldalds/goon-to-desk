@@ -9,13 +9,13 @@ def get_os_goon(horario, atraso):
 
         horario_inicial = horario - timedelta(minutes=atraso)
         horario_final = horario
+        data_to_desk = []
 
         response = go_on.get_all_located_orders_by_agent(
             agente_codigo=0,
             mobile_agent= "Internal",
             data= horario
         )
-        data_to_desk = []
         
         if not response:
             return data_to_desk
