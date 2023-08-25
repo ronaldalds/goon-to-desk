@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-ENV TZ=America/Sao_Paulo
+ENV TZ=America/Fortaleza
 
 RUN pip install --no-cache-dir -r requirements.txt
 
