@@ -92,6 +92,6 @@ class Goon:
 
         except Exception as e:
             print(f"Error getting: {e}")
-            time.spleep(60)
+            time.sleep(60)
             self.get_all_located_orders_by_agent(agente_codigo, mobile_agent, data)
         
