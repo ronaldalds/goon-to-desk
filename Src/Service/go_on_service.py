@@ -31,5 +31,5 @@ def get_os_goon(horario, atraso):
 
         return data_to_desk
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error get os goon: {e}")
         return data_to_desk

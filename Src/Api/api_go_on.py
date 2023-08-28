@@ -91,7 +91,6 @@ class Goon:
             return data_goon
 
         except Exception as e:
-            print(f"Error getting: {e}")
-            time.sleep(60)
-            self.get_all_located_orders_by_agent(agente_codigo, mobile_agent, data)
+            print(f"Error getting get all located: {e}")
+            return False
         

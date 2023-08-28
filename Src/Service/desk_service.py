@@ -65,5 +65,5 @@ def set_chamado_desk(os_goon):
 
             return request
     except Exception as e:
-        print(f"Error na interação com o chamado do desk: {e}")
+        print(f"Error set_chamado_desk: {e}")
         return
