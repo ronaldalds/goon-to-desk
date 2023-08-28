@@ -6,7 +6,7 @@ from dotenv import dotenv_values
 
 env = dotenv_values(".env")
 
-version = "0.0.3"
+version = "0.0.4"
 
 app = Client(
     name=env["BOT_NAME_TELEGRAM"], 
