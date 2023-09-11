@@ -49,7 +49,8 @@ def handle_chatgroup_id(client: Client, message: Message):
 def handle_chat_id(client: Client, message: Message):
     text = f"{message.from_user.first_name}.{message.from_user.last_name} - ID:{message.from_user.id}"
     client.send_message(message.from_user.id, text)
-    print(text)
+    if chat_adm[0] != message.from_user.id:
+        client.send_message(chat_adm[0], text)
 
 # iniciar x9
 @app.on_message(filters.command("iniciar_goon"))
