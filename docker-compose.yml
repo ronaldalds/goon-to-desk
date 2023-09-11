@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  goontodesk:
+    container_name: goontodesk
+    build: .
+    image: goontodesk:0.0.4
+    shm_size: 2g
+    tty: true
