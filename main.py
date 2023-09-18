@@ -20,6 +20,7 @@ chat_adm = [
 ]
 
 chat_goon_to_desk = [
+    int(env["CHAT_ID_ADM"]),
     int(env["CHAT_ID_GROUP_GO_TO_DESK"]),
 ]
 
